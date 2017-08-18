@@ -28,9 +28,9 @@ $History: $
 // Delay struct
 typedef struct
 {
-	UInt16 	Counter;
-	bool		isFree;
-	bool		DelayDone;
+	UInt16 Counter;
+	bool isFree;
+	bool DelayDone;
 }CounterStruct;
 
 typedef struct

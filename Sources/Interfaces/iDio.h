@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2016 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2016 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name : 	iDio.h	
@@ -80,8 +80,8 @@ typedef enum
 // IO state
 typedef enum
 {
-  kIoOn,
-  kIoOff
+  kIoOff = 0,
+  kIoOn
 }IoStateEnum;
 
 // IO interrupt type enum

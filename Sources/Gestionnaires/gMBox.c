@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2016 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2016 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name :	gMBox.c
@@ -27,4 +27,4 @@ InputStruct gInput;
 //-----------------------------------------------------------------------------
 // Compute handle structure
 //-----------------------------------------------------------------------------
-ComputeStruct gCompute;
+OutputStruct gOutput;

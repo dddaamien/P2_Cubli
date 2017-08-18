@@ -118,13 +118,13 @@ void iDio_SetPort(PortIOEnum aPort,IoMaskEnum aMask,IoStateEnum aState)
 		}
     
   // Set or reset the output
-  if(kIoOn==aState)
+  if(kIoOff==aState)
     {
-      *aPortSetPtr|=aMask;
+      *aPortClrPtr |= aMask;
     }
-  else if(kIoOff==aState)
+  else
     {
-      *aPortClrPtr|=aMask;
+      *aPortSetPtr |= aMask;
     }
 }
 

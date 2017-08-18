@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2010 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2010 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name : 	iUart.h	
@@ -28,8 +28,8 @@ $History: $
 typedef enum
 {
 	kUart0,
-	kUart3,
-	kUart4
+	kUart1,
+	kUart2
 }UARTEnum;
 
 //------------------------------------------------------------

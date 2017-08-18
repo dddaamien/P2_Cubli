@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2016 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2016 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name :	gCompute.c
@@ -34,5 +34,13 @@ void gCompute_Setup(void)
 //-----------------------------------------------------------------------------
 void gCompute_Execute(void)
 {
-
+	gOutput.leds = gInput.switchsArray<<2 | gInput.btnTab[1].current<<1 | gInput.btnTab[0].current;
+	if(gInput.uartRx != 0)
+	{
+		gOutput.uartTx = gInput.uartRx+1;
+	}
+	else
+	{
+		gOutput.uartTx = 0;
+	}
 }

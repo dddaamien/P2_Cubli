@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2016 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2016 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name : 	gInput.h	
@@ -32,9 +32,5 @@ void gInput_Setup(void);
 //-----------------------------------------------------------------------------
 void gInput_Execute(void);
 
-//-----------------------------------------------------------------------------
-// Send to external monitor
-//-----------------------------------------------------------------------------
-void gInput_Monitoring(void);
 
 #endif

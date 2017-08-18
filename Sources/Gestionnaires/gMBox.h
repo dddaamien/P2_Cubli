@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2016 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2016 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name : 	gMBox.h	
@@ -22,87 +22,35 @@ $History: $
 
 #include "def.h"
 
+#define kNbOfBtn 2
+
+typedef struct
+{
+	bool current;
+	bool old;
+}BtnStateStruct;
+
+
 //-----------------------------------------------------------------------------
 // Input handle structure
 //-----------------------------------------------------------------------------
 typedef struct
 {
-	float 	Toto;
-
+	BtnStateStruct btnTab[kNbOfBtn];
+	uint8_t switchsArray;
+	uint8_t uartRx;
 }InputStruct;
-
 extern InputStruct gInput;
 
 //-----------------------------------------------------------------------------
 // Compute handle structure
 //-----------------------------------------------------------------------------
-
-
-
-
 typedef struct
 {
-
-	UInt8 Titi;
-
-}ComputeStruct;
-
-extern ComputeStruct gCompute;
-
-//-----------------------------------------------------------------------------
-// Host Cmd handle structure
-//-----------------------------------------------------------------------------
-typedef struct
-{
-	UInt32 SecurityRelay_Bac1:1;
-	UInt32 SecurityRelay_Bac2:1;
-	UInt32 WorkingRelay_Bac1:1;
-	UInt32 WorkingRelay_Bac2:1;
-	UInt32 SolBIB_Bac1:1;
-	UInt32 SolBIB_Bac2:1;
-	UInt32 SolFilling_Bac1:1;
-	UInt32 SolFilling_Bac2:1;
-	UInt32 SolFiltering_Bac1:1;
-	UInt32 SolFiltering_Bac2:1;
-	UInt32 PumpFilling_Bac1:1;
-	UInt32 PumpFilling_Bac2:1;
-	UInt32 PumpBIB_Bac1:1;
-	UInt32 PumpBIB_Bac2:1;
-	UInt32 Basket_Bac1:1;
-	UInt32 Basket_Bac2:1;
-	UInt32 Buzzer_Bac1:1;
-	UInt32 Buzzer_Bac2:1;
-	UInt32 Reserved:14;
-}ActionStruct;
-typedef union
-{
-	UInt32 Action;
-	ActionStruct ActionBits;
-}ActionUnion;
-
-typedef struct
-{
-	UInt32 PreHeats_Bac1:1;
-	UInt32 PreHeats_Bac2:1;
-	UInt32 Heats_Bac1:1;
-	UInt32 Heats_Bac2:1;
-	UInt32 Standby_Bac1:1;
-	UInt32 Standby_Bac2:1;
-	UInt32 Reserved:26;
-}WorkingStateStruct;
-typedef union
-{
-	UInt32 WorkingState;
-	WorkingStateStruct WorkingStateBits;
-}WorkingStateUnion;
-
-typedef struct
-{
-	ActionUnion ActionCmd;
-	WorkingStateUnion WorkingStateCmd;
-}HostCmdStruct;
-
-extern HostCmdStruct gHostCmd;
+	uint8_t leds;
+	uint8_t uartTx;
+}OutputStruct;
+extern OutputStruct gOutput;
 
 
 #endif
