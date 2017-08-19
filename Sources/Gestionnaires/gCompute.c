@@ -43,4 +43,7 @@ void gCompute_Execute(void)
 	{
 		gOutput.uartTx = 0;
 	}
+
+	if((gInput.btnTab[0].current != gInput.btnTab[0].old) && (gOutput.servoAngle>=10)) gOutput.servoAngle-=10;
+	else if((gInput.btnTab[1].current != gInput.btnTab[1].old) && (gOutput.servoAngle<=170)) gOutput.servoAngle+=10;
 }

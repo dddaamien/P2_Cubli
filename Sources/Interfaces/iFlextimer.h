@@ -1,6 +1,6 @@
 /*
 ------------------------------------------------------------
-Copyright 2003-2010 Haute école ARC Ingéniérie, Switzerland. 
+Copyright 2003-2010 Haute ï¿½cole ARC Ingï¿½niï¿½rie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
 File name : 	iFlextimer.h	
@@ -25,16 +25,22 @@ $History: $
 // Pwm enum
 typedef enum
 {
-	kPwm1,
-	kPwm2
-}PwmEnum;
+	kFtm0,
+	kFtm1
+}FtmEnum;
 
 // Pwm channels enum
 typedef enum
 {
-	kPwmCh0,
-	kPwmCh1
-}PwmChannelEnum;
+	kFtmCh0 = 0,
+	kFtmCh1 = 1,
+	kFtmCh2 = 2,
+	kFtmCh3 = 3,
+	kFtmCh4 = 4,
+	kFtmCh5 = 5,
+	kFtmCh6 = 6,
+	kFtmCh7 = 7
+}FtmChannelEnum;
 
 
 //------------------------------------------------------------
@@ -45,6 +51,6 @@ void iFlextimer_Config(void);
 //------------------------------------------------------------
 // Set PWM duty
 //------------------------------------------------------------
-void iFlextimer_UpdatePWM(PwmEnum aPwm, PwmChannelEnum aChannel, float aDuty);
+void iFlextimer_UpdateDuty(FtmEnum aFtm, FtmChannelEnum aChannel, uint16_t aDuty);
 
 #endif

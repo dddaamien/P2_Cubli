@@ -43,12 +43,13 @@ typedef struct
 extern InputStruct gInput;
 
 //-----------------------------------------------------------------------------
-// Compute handle structure
+// Output handle structure
 //-----------------------------------------------------------------------------
 typedef struct
 {
 	uint8_t leds;
 	uint8_t uartTx;
+	uint8_t servoAngle;
 }OutputStruct;
 extern OutputStruct gOutput;
 

@@ -28,11 +28,11 @@ void gOutput_Setup(void)
 {
 	mLeds_Setup();
 	// Pas nécessaire de faire l'init de l'uart, déjà fait dans gInput
+	mServo_Setup();
 
 	mLeds_Write(kLedAll,~kLedAll);
 
 	mRs232_WriteString("Je pense que les migrants doivent retourner chez eux !\r\n");
-	iFlextimer_Config();
 }
 
 //-------------------------------------------------------------------------
@@ -45,4 +45,5 @@ void gOutput_Execute(void)
 	{
 		mRs232_WriteChar(gOutput.uartTx);
 	}
+	mServo_SetAngle(gOutput.servoAngle);
 }
