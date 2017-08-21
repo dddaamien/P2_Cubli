@@ -3,10 +3,10 @@
 Copyright 2003-2017 Haute école ARC Ingéniérie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
-File name :	mServo.c
+File name :	mMotor.h
 Author and date :	damien 19 Aug 2017
 
-Description in the header file (.h)
+Goal
 
 -----------------------------------------------------------------------------
 History:
@@ -14,19 +14,18 @@ History:
 
 -----------------------------------------------------------------------------
 */
-#include "def.h"
-#include "mServo.h"
-#include "iFlextimer.h"
+#ifndef SOURCES_MODULES_MMOTOR_H_
+#define SOURCES_MODULES_MMOTOR_H_
 
-void mServo_Setup()
+enum DirectionEnum
 {
-	iFlextimer_Config();
-}
+	kForward,
+	kBackward
+};
 
-// aAngle:angle en degrés
-// Le FTM doit avoir une période de 20ms sur 16bits
-void mServo_SetAngle(uint8_t aAngle)
-{
-	//0°->1ms, 180°->2ms
-	iFlextimer_UpdateDuty(kFtm0,kFtmCh0,((uint32_t)aAngle<<12)/225 + 3276);
-}
+void mMotor_Setup(void);
+
+void mMotor_Set(enum DirectionEnum aDirection, uint16_t aSpeed);
+
+
+#endif /* SOURCES_MODULES_MMOTOR_H_ */

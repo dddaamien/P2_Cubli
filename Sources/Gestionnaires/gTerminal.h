@@ -3,10 +3,10 @@
 Copyright 2003-2017 Haute école ARC Ingéniérie, Switzerland. 
 All rights reserved.
 ------------------------------------------------------------
-File name :	gOutput.c
-Author and date :	damien 18 Aug 2017
+File name :	gTerminal.h
+Author and date :	damien 20 Aug 2017
 
-Description in the header file (.h)
+Goal
 
 -----------------------------------------------------------------------------
 History:
@@ -14,31 +14,23 @@ History:
 
 -----------------------------------------------------------------------------
 */
-#include "gOutput.h"
-#include "gMBox.h"
-#include "mLeds.h"
-#include "mMotor.h"
-
+#ifndef SOURCES_GESTIONNAIRES_GTERMINAL_H_
+#define SOURCES_GESTIONNAIRES_GTERMINAL_H_
 
 //-------------------------------------------------------------------------
 // Configuration du gestionnaire
 //-------------------------------------------------------------------------
-void gOutput_Setup(void)
-{
-	mLeds_Setup();
-	// Pas nécessaire de faire l'init de l'uart, déjà fait dans gInput
-	mServo_Setup();
-	mMotor_Setup();
-
-	mLeds_Write(kLedAll,kLedAll);
-}
+void gTerminal_Setup(void);
 
 //-------------------------------------------------------------------------
 // Exécution du gestionnaire
 //-------------------------------------------------------------------------
-void gOutput_Execute(void)
-{
-	mLeds_Write(kLedAll,gOutput.leds);
-	mServo_SetAngle(gOutput.servoAngle);
-	mMotor_Set(kForward,0x0fff); //~6%
-}
+void gTerminal_Execute(void);
+
+//static
+static bool gTerminal_Monitoring(uint8_t aChar);
+static bool gTerminal_Motor(uint8_t aChar);
+static bool gTerminal_Servo(uint8_t aChar);
+
+
+#endif /* SOURCES_GESTIONNAIRES_GTERMINAL_H_ */

@@ -37,21 +37,15 @@ void iFlextimer_Config(void)
 	//------------------------------------------------------------
 	// FTM0
 	//------------------------------------------------------------
-//	FTM0_SC = 0; // Desactivation de l'entrée du clock le temps de la configuration
-
-//	GPIOD_PDDR |= (1 << 6); // Sortie
 
 	FTM0->MODE |= FTM_MODE_WPDIS_MASK; // Desactive la protection en ecriture
-	//FTM0_MODE |= FTM_MODE_FTMEN_MASK; // FTM enable
 
 	FTM0->CNTIN = 0; // Valeur d'initialisation du compteur
 	FTM0->CNT = 0;
 	FTM0->MOD = FTM_MOD_MOD(0xFFFF); // Modulo (p689)
 	// PWM ch0->servo, ch6->motVref
 	FTM0->CONTROLS[0].CnSC = 0x28; // Edge-Aligned PWM (p691)
-//	FTM0->CONTROLS[0].CnV = 0x7FFF; //Duty
 	FTM0->CONTROLS[6].CnSC = 0x28; // Edge-Aligned PWM (p691)
-//	FTM0->CONTROLS[6].CnV = 0x3FFF; //Duty
 	// Capture ch1->motTacho
 	FTM0->CONTROLS[1].CnSC = 0x01; //Input capture, rising edge (p691)
 

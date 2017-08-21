@@ -24,6 +24,7 @@
 #include "gInput.h"
 #include "gCompute.h"
 #include "gOutput.h"
+#include "gTerminal.h"
 #include "def.h"
 
 
@@ -57,9 +58,11 @@ void main(void)
 	gCompute_Setup();
 	// Output handle setup
 	gOutput_Setup();
+	// Terminal handle setup
+	gTerminal_Setup();
 
 	// Get one delay
-	sDlyInpNb = mDelay_GetDelay(kPit0, 500 / kPit0Period);
+	sDlyInpNb = mDelay_GetDelay(kPit0, 1000 / kPit0Period);
 
 	//-----------------------------------------------------------------------
 	// Inifinite loop
@@ -72,7 +75,7 @@ void main(void)
 		if(mDelay_IsDelayDone(kPit0, sDlyInpNb))
 		{
 			// Delay restart
-			mDelay_ReStart(kPit0, sDlyInpNb, 500 / kPit0Period);
+			mDelay_ReStart(kPit0, sDlyInpNb, 100 / kPit0Period);
 
 			// Input handle execute
 			gInput_Execute();
@@ -80,6 +83,8 @@ void main(void)
 			gCompute_Execute();
 			// Output handle execute
 			gOutput_Execute();
+			// Terminal handle execute
+			gTerminal_Execute();
 		}
 	}
 }

@@ -19,7 +19,7 @@ $History: $
 #include "gInput.h"
 #include "gMBox.h"
 #include "mSwitchs.h"
-#include "mRs232.h"
+#include "mEm7180.h"
 
 //-----------------------------------------------------------------------------
 // handle setup
@@ -27,8 +27,8 @@ $History: $
 void gInput_Setup(void)
 {
 	mSwitchs_Setup();
-	mRs232_Setup();
-	mRs232_Open();
+	mEm7180_Setup(kEm7180D0);
+
 	//Initialisation des variables d'entrée
 	for(uint8_t i = 0;i<kNbOfBtn;++i)
 	{
@@ -36,7 +36,6 @@ void gInput_Setup(void)
 		gInput.btnTab[i].old = false;
 	}
 	gInput.switchsArray = 0;
-	gInput.uartRx = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ void gInput_Execute(void)
 		gInput.btnTab[i].old = gInput.btnTab[i].current;
 		gInput.btnTab[i].current = gInput.switchsArray & 0x01;
 		gInput.switchsArray >>= 1;
+		mEm7180_GetQuaternions(gInput.sentralData);
 	}
-	gInput.uartRx = mRs232_ReadCharFromBuffer();
 }
 
