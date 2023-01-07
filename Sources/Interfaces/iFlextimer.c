@@ -16,7 +16,7 @@ History:
 
 -----------------------------------------------------------------------------
 */
-
+#include "def.h"
 #include "iFlextimer.h"
 #include "MK10D5.h"
 
@@ -63,6 +63,19 @@ void iFlextimer_UpdateDuty(FtmEnum aFtm, FtmChannelEnum aChannel, uint16_t aDuty
 		break;
 	case kFtm1:
 		FTM1->CONTROLS[aChannel].CnV = aDuty;
+		break;
+	}
+}
+
+uint16_t iFlexTimer_GetPeriod(FtmEnum aFtm, FtmChannelEnum aChannel)
+{
+	switch(aFtm)
+	{
+	case kFtm0:
+		return FTM0->CONTROLS[aChannel].CnV;
+		break;
+	case kFtm1:
+		return FTM1->CONTROLS[aChannel].CnV;
 		break;
 	}
 }

@@ -53,4 +53,7 @@ void iFlextimer_Config(void);
 //------------------------------------------------------------
 void iFlextimer_UpdateDuty(FtmEnum aFtm, FtmChannelEnum aChannel, uint16_t aDuty);
 
+//Get capture duty
+uint16_t iFlexTimer_GetPeriod(FtmEnum aFtm, FtmChannelEnum aChannel);
+
 #endif

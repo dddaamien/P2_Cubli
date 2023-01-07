@@ -31,6 +31,6 @@ void gTerminal_Execute(void);
 static bool gTerminal_Monitoring(uint8_t aChar);
 static bool gTerminal_Motor(uint8_t aChar);
 static bool gTerminal_Servo(uint8_t aChar);
-
+static bool gTerminal_Config(uint8_t aChar);
 
 #endif /* SOURCES_GESTIONNAIRES_GTERMINAL_H_ */

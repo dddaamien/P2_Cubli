@@ -21,11 +21,12 @@ History:
 #include "mDelay.h"
 
 #define kMonitoringRefreshTime 500
+#define kGainStep 0.1
 
 // Etat possible du terminal
 typedef enum
 {
-	kTerminalInit, kPrintMenu, kWaitChar, kMonitoring, kMotor, kServo
+	kTerminalInit, kPrintMenu, kWaitChar, kMonitoring, kMotor, kServo, kConfig
 } TerminalStateEnum;
 static TerminalStateEnum sTerminalState;
 
@@ -62,13 +63,13 @@ void gTerminal_Execute(void)
 		}
 		break;
 	case kPrintMenu:
-		mRs232_WriteString("0: Monitoring\r\n1: Moteur\r\n2: Servo\r\n");
+		mRs232_WriteString("0: Monitoring\r\n1: Moteur\r\n2: Servo\r\n3 Config\r\n");
 		sTerminalState = kWaitChar;
 		break;
 	case kWaitChar:
 		if(aChar)
 		{
-			if((aChar<'0') || (aChar>'2')) sTerminalState = kPrintMenu; // Entrée invalide
+			if((aChar<'0') || (aChar>'3')) sTerminalState = kPrintMenu; // Entrée invalide
 			else
 			{
 				switch(aChar)
@@ -82,6 +83,9 @@ void gTerminal_Execute(void)
 				case '2': //Servo
 					sTerminalState = kServo;
 					break;
+				case '3':
+					sTerminalState = kConfig;
+					break;
 				}
 			}
 		}
@@ -94,6 +98,9 @@ void gTerminal_Execute(void)
 		break;
 	case kServo:
 		if(gTerminal_Servo(aChar)) sTerminalState=kPrintMenu;
+		break;
+	case kConfig:
+		if(gTerminal_Config(aChar)) sTerminalState=kPrintMenu;
 		break;
 	}
 }
@@ -134,28 +141,31 @@ static bool gTerminal_Motor(uint8_t aChar)
 {
 	char tabText[50];
 
-	switch(aChar)
+	if(aChar)
 	{
-	case '+':
-		((gOutput.motorSpeed<60000) ? (gOutput.motorSpeed+=5000) : (gOutput.motorSpeed=0xFFFF));
-		break;
-	case '-':
-		((gOutput.motorSpeed>5000) ? (gOutput.motorSpeed-=5000) : (gOutput.motorSpeed=0));
-		break;
-	case 'f':
-		gOutput.motorDirection=kForward;
-		break;
-	case 'b':
-		gOutput.motorDirection=kBackward;
-		break;
-	case 's':
-		sprintf(tabText,"Vitesse: %u\%, Direction: ",((uint32_t)gOutput.motorSpeed*100)/0xFFFF);
-		mRs232_WriteString(tabText);
-		((gOutput.motorDirection==kForward) ? (mRs232_WriteString("forward\r\n")) : (mRs232_WriteString("backward\r\n")));
-		break;
-	default:
-		mRs232_WriteString("Vitesse: [+]augmenter,[-]diminuer\r\nDirection: [f]avant,[b]arriere\r\n[s]status, [q] pour quitter\r\n");
-		break;
+		switch(aChar)
+		{
+		case '+':
+			((gOutput.motorSpeed<60000) ? (gOutput.motorSpeed+=5000) : (gOutput.motorSpeed=0xFFFF));
+			break;
+		case '-':
+			((gOutput.motorSpeed>5000) ? (gOutput.motorSpeed-=5000) : (gOutput.motorSpeed=0));
+			break;
+		case 'f':
+			gOutput.motorDirection=kForward;
+			break;
+		case 'b':
+			gOutput.motorDirection=kBackward;
+			break;
+		case 's':
+			sprintf(tabText,"Vitesse: %u\%, Direction: ",((uint32_t)gOutput.motorSpeed*100)/0xFFFF);
+			mRs232_WriteString(tabText);
+			((gOutput.motorDirection==kForward) ? (mRs232_WriteString("forward\r\n")) : (mRs232_WriteString("backward\r\n")));
+			break;
+		default:
+			mRs232_WriteString("Vitesse: [+]augmenter,[-]diminuer\r\nDirection: [f]avant,[b]arriere\r\n[s]status, [q] pour quitter\r\n");
+			break;
+		}
 	}
 	return aChar=='q';
 }
@@ -163,23 +173,61 @@ static bool gTerminal_Motor(uint8_t aChar)
 static bool gTerminal_Servo(uint8_t aChar)
 {
 	char tabText[50];
-
-	switch(aChar)
+	if(aChar)
 	{
-	case '+':
-		((gOutput.servoAngle<170) ? (gOutput.servoAngle+=10) : (gOutput.servoAngle=180));
-		break;
-	case '-':
-		((gOutput.servoAngle>10) ? (gOutput.servoAngle-=10) : (gOutput.servoAngle=0));
-		break;
-	case 's':
-		sprintf(tabText,"Angle du servo: %u\r\n",gOutput.servoAngle);
-		mRs232_WriteString(tabText);
-		break;
-	default:
-		mRs232_WriteString("Angle: [+]augmenter,[-]diminuer\r\n[s]status, [q] pour quitter\r\n");
-		break;
+		switch(aChar)
+		{
+		case '+':
+			((gOutput.servoAngle<170) ? (gOutput.servoAngle+=10) : (gOutput.servoAngle=180));
+			break;
+		case '-':
+			((gOutput.servoAngle>10) ? (gOutput.servoAngle-=10) : (gOutput.servoAngle=0));
+			break;
+		case 's':
+			sprintf(tabText,"Angle du servo: %u\r\n",gOutput.servoAngle);
+			mRs232_WriteString(tabText);
+			break;
+		default:
+			mRs232_WriteString("Angle: [+]augmenter,[-]diminuer\r\n[s]status, [q] pour quitter\r\n");
+			break;
+		}
 	}
 	return aChar=='q';
 }
 
+static bool gTerminal_Config(uint8_t aChar)
+{
+	char tabText[50];
+
+	if(aChar)
+	{
+		switch(aChar)
+		{
+		case 'P':
+			gCompute.regPiConfig.GainP+=kGainStep;
+			break;
+		case 'p':
+			gCompute.regPiConfig.GainP-=kGainStep;
+			break;
+		case 'I':
+			gCompute.regPiConfig.GainI+=kGainStep;
+			break;
+		case 'i':
+			gCompute.regPiConfig.GainI-=kGainStep;
+			break;
+		case 's':
+			sprintf(tabText,"P=%5.3f, I=%5.3f\r\n",gCompute.regPiConfig.GainP,gCompute.regPiConfig.GainI);
+			break;
+		case 'M':
+			gCompute.mode=kModeManuel;
+			break;
+		case 'A':
+			gCompute.mode=kModeAuto;
+			break;
+		default:
+			mRs232_WriteString("Proportionnelle:[p]-[P]+, Integrale:[i]-[I]+\r\nMode manuel[M],Mode auto[A]\r\nStatus:[s],Quit:[q]\r\n");
+			break;
+		}
+	}
+	return aChar=='q';
+}

@@ -20,6 +20,7 @@ $History: $
 #include "gMBox.h"
 #include "mSwitchs.h"
 #include "mEm7180.h"
+#include "iFlextimer.h"
 
 //-----------------------------------------------------------------------------
 // handle setup
@@ -28,6 +29,7 @@ void gInput_Setup(void)
 {
 	mSwitchs_Setup();
 	mEm7180_Setup(kEm7180D0);
+	iFlextimer_Config();
 
 	//Initialisation des variables d'entrée
 	for(uint8_t i = 0;i<kNbOfBtn;++i)
@@ -52,5 +54,6 @@ void gInput_Execute(void)
 		gInput.switchsArray >>= 1;
 		mEm7180_GetQuaternions(gInput.sentralData);
 	}
+	gInput.motorPeriod = iFlexTimer_GetPeriod(kFtm0,kFtmCh1);
 }
 

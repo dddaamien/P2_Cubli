@@ -47,6 +47,7 @@ typedef struct
 	struct BtnStateStruct btnTab[kNbOfBtn];
 	uint8_t switchsArray;
 	struct Em7180DataStruct sentralData;
+	uint16_t motorPeriod;
 }InputStruct;
 extern InputStruct gInput;
 

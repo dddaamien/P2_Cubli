@@ -40,5 +40,5 @@ void gOutput_Execute(void)
 {
 	mLeds_Write(kLedAll,gOutput.leds);
 	mServo_SetAngle(gOutput.servoAngle);
-	mMotor_Set(kForward,0x0fff); //~6%
+	mMotor_Set(gOutput.motorDirection,gOutput.motorSpeed);
 }

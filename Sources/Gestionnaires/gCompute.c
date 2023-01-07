@@ -25,6 +25,7 @@ $History: $
 
 static uint16_t sDelay;
 
+
 //-----------------------------------------------------------------------------
 // handle setup
 //-----------------------------------------------------------------------------
@@ -35,6 +36,7 @@ void gCompute_Setup(void)
 	gCompute.regPiConfig.LimTotLow=(float)0xFFFF;
 	gCompute.regPiConfig.GainP=0.5;
 	gCompute.regPiConfig.GainI=0.5;
+	gCompute.mode = kModeManuel;
 }
 
 
